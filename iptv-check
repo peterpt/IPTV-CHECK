@@ -113,7 +113,7 @@ case "$chkurl" in
 http|rtmp|HTTP)
 wget -q "$chkf" -O "$path/temp/stream" & echo $! > "$path/temp/pid.tmp" 
 pid=$(sed -n 1p < "$path/temp/pid.tmp")
-sleep 2 
+sleep 4 
 rpid=$(ps -p "$pid" -o pid= | awk '{print$1}')
 if [[ "$rpid" == "$pid" ]]
 then
