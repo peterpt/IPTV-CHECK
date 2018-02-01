@@ -6,7 +6,7 @@ In case valid urls were found , then the script will create a new iptv (m3u) fil
 # Screenshots
 <img src="https://s14.postimg.org/mscao3ntt/iptv-ck.jpg" width="55%"></img>
 
-<img src="https://s14.postimg.org/grelrf6gx/icheck2.png" width="40%"></img><img src="https://s14.postimg.org/we5v4szoh/CHECK_034.png" width="25%"></img>
+<img src="https://s14.postimg.org/grelrf6gx/icheck2.png" width="40%"></img><img src="https://s14.postimg.org/we5v4szoh/CHECK_034.png" width="40%"></img>
 
 # Requirements
 
@@ -18,4 +18,4 @@ In case valid urls were found , then the script will create a new iptv (m3u) fil
 
 # Tool Instalation
 
-- 
+- git clone https://github.com/peterpt/IPTV-CHECK.git && cd IPTV-CHECK && ./iptv-check
