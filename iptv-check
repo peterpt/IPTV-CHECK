@@ -1,0 +1,226 @@
+#!/bin/bash
+#variables
+path=$(pwd)
+sname=$0
+wfile="$path/oklist.m3u"
+
+#setup colors
+cyan='\e[0;36m'
+green='\033[92m'
+red='\e[1;31m'
+yellow='\e[0;33m'
+orange='\e[38;5;166m'
+
+# Check if temp directory exists
+if [[ ! -d $path/temp ]]
+then
+mkdir "$path/temp" >/dev/null 2>&1
+fi
+
+rm -rf "$path/temp/*" >/dev/null 2>&1
+
+warn() {
+if [[ $i -gt $wrn ]]
+then
+wrn=$((wrn+40))
+else
+if [[ $i == "$wrn" ]]
+then
+echo ""
+echo -e "$red""Press CTRL+C To Stop or Abort IPTV list check"
+echo ""
+fi
+fi
+}
+
+#Ctrl+C Interrupt to stop the script
+trap ctrl_c INT
+function ctrl_c() {
+if [[ -f "$path/temp/pid.tmp" ]]
+then	
+pid=$(sed -n 1p < "$path/temp/pid.tmp")
+rpid=$(ps -p "$pid" -o pid= | awk '{print$1}')
+if [[ "$rpid" == "$pid" ]]
+then
+kill $pid >/dev/null 2>&1
+exit 1
+else
+exit 1
+fi	
+else
+exit 1
+fi
+
+}
+
+logo() {
+echo -e "$green" "IPTV-Check Tool 1.0"
+echo -e "$yellow" "-------------------------------------"
+echo -e "$blue" "http://github.com/peterpt"
+echo -e "$yellow" "-------------------------------------"
+echo ""
+which wget > /dev/null 2>&1
+      if [ "$?" -eq "1" ]; then
+   echo -e "$red" "Wget Missing"
+echo ""
+echo -e "$yellow" "Try : apt-get install wget"
+exit 1
+fi 
+}
+ 
+function writefile() {
+if [[ -f "$wfile" ]]
+then
+gturlline=$(grep -n "\<$chkf\>"<$path/temp/1 | tr ":" "\n" | sed -n 1p)
+gturlline=$((gturlline-1))
+stdata=$(sed -n "${gturlline}p"< $path/temp/1)
+echo "$stdata" >> "$wfile"
+echo "$chkf" >> "$wfile"
+echo "" >> "$wfile"
+else
+echo "#EXTM3U" > "$wfile"
+echo "" >> "$wfile"
+gturlline=$(grep -n "\<$chkf\>"<$path/temp/1 | tr ":" "\n" | sed -n 1p)
+gturlline=$((gturlline-1))
+stdata=$(sed -n "${gturlline}p"< $path/temp/1)
+echo "$stdata" >> "$wfile"
+echo "$chkf" >> "$wfile"
+echo "" >> "$wfile"
+fi
+}
+function teststream() {
+wrn="0"
+if [[ -f "$wfile" ]]
+then
+exts="1"
+else
+exts="0"
+fi
+
+glnk=$(grep -F "http" < "$path/temp/1" | sed '/jpg/d' | sed '/png/d')
+echo "$glnk" | tr " " "\n" > "$path/temp/2"
+srvnmb=$(wc -l "$path/temp/2" | awk '{print$1}')
+rm -rf "$path/temp/stream" >/dev/null 2>&1
+rm -rf "$path/temp/pid.tmp" >/dev/null 2>&1
+echo ""
+echo -e "$red""Press CTRL+C To Stop or Abort IPTV list check"
+echo ""
+for i in $(seq "$srvnmb")
+do
+chkf=$(sed -n "${i}p" < "$path/temp/2")
+chkurl=$(echo "$chkf" | head -c 4)
+case "$chkurl" in
+http|rtmp|HTTP)
+wget -q "$chkf" -O "$path/temp/stream" & echo $! > "$path/temp/pid.tmp" 
+pid=$(sed -n 1p < "$path/temp/pid.tmp")
+sleep 2 
+rpid=$(ps -p "$pid" -o pid= | awk '{print$1}')
+if [[ "$rpid" == "$pid" ]]
+then
+kill $pid
+fi
+if [[ ! -f "$path/temp/stream" ]]
+then
+echo -e "$yellow" "Error reading captured file"
+else
+stsz=$(wc -c "$path/temp/stream" | awk '{print$1}')
+if [[ "$stsz" -le "100" ]]
+then
+echo -e "$green" "Link:$yellow $i$green of :$yellow$srvnmb$green is$red OFF"
+else
+echo -e "$green" "Link:$yellow $i$green of :$yellow$srvnmb$green is$green ON"
+writefile
+fi
+fi
+;;
+*)
+;;
+esac
+rm -rf "$path/temp/stream" >/dev/null 2>&1
+rm -rf "$path/temp/pid.tmp" >/dev/null 2>&1
+warn
+done
+if [[ "$exts" == "0" ]]
+then
+if [[ -f "$wfile" ]]
+then
+echo ""
+echo -e "$green" "Job Finished"
+echo ""
+echo -e "$yellow" "You can find your new iptv list in :"
+echo -e "$orange" "$wfile"
+exit 1
+fi
+else
+echo ""
+echo -e "$green" "Job Finished"
+echo ""
+echo -e "$yellow" "Your iptv list was update in :"
+echo -e "$orange" "$wfile"
+exit 1
+fi
+}	
+
+
+function remotef() {
+wget "$file" -O "$path/temp/1" >/dev/null 2>&1
+flsz=$(wc -c "$path/temp/1" | awk '{print$1}')
+if [[ "$flsz" -le "10" ]]
+then
+echo -e "$yellow" "The remote link is down or the file size of it"
+echo -e "$yellow" "     is too small to be an m3u iptv list file"
+echo ""
+exit 1
+fi
+teststream
+}
+function localf(){
+if [[ ! -f "$file" ]]
+then
+echo -e "$yellow" "The file you specified does not exist"
+echo -e "$yellow" "in :$green $file "
+echo ""
+echo -e "$yellow" "Make sure you wrote the right path of it"
+exit 1
+fi
+cp "$file" "$path/temp/1" >/dev/null 2>&1
+flsz=$(wc -c "$path/temp/1" | awk '{print$1}')
+if [[ "$flsz" -le "10" ]]
+then
+echo -e "$yellow" "The file you specified is too small to be an m3u iptv file"
+exit 1
+fi
+teststream
+}
+if [[ -z $1 ]] 
+then
+echo -e "$green" "IPTV-Check Tool 1.0"
+echo -e "$yellow" "-------------------------------------"
+echo -e "$blue" "http://github.com/peterpt"
+echo -e "$yellow" "-------------------------------------"
+echo ""
+echo -e "$orange" "Example for remote list to check :"
+echo -e "$green" "$0 http://someurl/somelist.m3u"
+echo ""
+echo -e "$orange" "Example for local list to check :"
+echo -e "$green" "$0 /root/mylist.m3u"
+echo ""
+echo -e "$yellow" "-------------------------------------"
+echo ""
+exit 1
+fi
+if [[ ! -f $path/null ]]
+then
+echo "0" > $path/null
+exec $sname $1 2>/dev/null
+exit 1
+fi
+rm -rf $path/null >/dev/null 2>&1
+logo
+file="$1"
+echo "$file" | grep "http" >/dev/null 2>&1
+if [ "$?" -eq "0" ]; then
+remotef
+else
+localf
+fi
