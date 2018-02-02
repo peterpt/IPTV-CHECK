@@ -97,7 +97,7 @@ else
 exts="0"
 fi
 
-glnk=$(grep -F "http" < "$path/temp/1" | sed '/jpg/d' | sed '/png/d')
+glnk=$(grep -F "http" < "$path/temp/1" | sed '/EXTINF/d' | sed '/EXTM3U/d' | awk '!a[$0]++' | sed '/^$/d')
 echo "$glnk" | tr " " "\n" > "$path/temp/2"
 srvnmb=$(wc -l "$path/temp/2" | awk '{print$1}')
 rm -rf "$path/temp/stream" >/dev/null 2>&1
