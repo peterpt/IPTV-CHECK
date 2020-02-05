@@ -99,7 +99,7 @@ function writefile() {
 if [[ -f "$wfile" ]]
 then
 #searchs for that specific url in original file and get line number
-gturlline=$(grep -n "\<$chkf\>"<$path/temp/1 | tr ":" "\n" | sed -n 1p)
+gturlline=$(grep -n "$chkf"<$path/temp/1 | tr ":" "\n" | sed -n 1p)
 # This variavble will get the line number before the previous url (this is to get channel name)
 defline=$((gturlline-1))
 stdata=$(sed -n "$defline p"< $path/temp/1)
@@ -109,7 +109,7 @@ echo "" >> "$wfile"
 else
 echo "#EXTM3U" > "$wfile"
 echo "" >> "$wfile"
-gturlline=$(grep -n "\<$chkf\>"<$path/temp/1 | tr ":" "\n" | sed -n 1p)
+gturlline=$(grep -n "$chkf"<$path/temp/1 | tr ":" "\n" | sed -n 1p)
 defline=$((gturlline-1))
 stdata=$(sed -n "$defline p"< $path/temp/1)
 echo "$stdata" >> "$wfile"
