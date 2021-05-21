@@ -5,11 +5,11 @@ sname=$0
 wfile="$path/oklist.m3u"
 
 #setup colors
-cyan='\e[0;36m'
+cyan='\033[0;36m'
 green='\033[92m'
-red='\e[1;31m'
-yellow='\e[0;33m'
-orange='\e[38;5;166m'
+red='\033[1;31m'
+yellow='\033[0;33m'
+orange='\033[38;5;166m'
 
 # Check if temp directory exists
 if [[ ! -d $path/temp ]]
