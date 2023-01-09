@@ -1,5 +1,3 @@
-## Project moved to https://gitlab.com/peterpt/IPTV-CHECK
-
 # IPTV-CHECK 1.0
 
 Iptv-check allows you to input a valid iptv file (m3u) to be checked if the video streams are still working or not .
