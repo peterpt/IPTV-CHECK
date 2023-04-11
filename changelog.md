@@ -1,5 +1,6 @@
 ## IPTV-Checker (Changelog)
 
+* v2.0 - OCR Detection on working streaming channels to detect if that channel is really online or is just a bad login
 * v1.0 - Few changes in m3u files
 * v1.0 - Implemented automatic detection of xml iptv files
 * v1.0 - Bug fix & implementation , changed how iptv-check filters the m3u file lists and from now will autoremove repeated urls on lists to scan
