@@ -21,3 +21,6 @@ but if there is a bad login it will pop up a login message . OCR detection was a
 # Tool Instalation
 
 - git clone https://github.com/peterpt/IPTV-CHECK.git && cd IPTV-CHECK && ./iptv-check
+
+# Future implementations
+ - on future implementations i will use ffmpeg to test streams witch is much more reliable than wget 
