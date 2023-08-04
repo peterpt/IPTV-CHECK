@@ -1,4 +1,4 @@
-# IPTV-CHECK 2.0
+# IPTV-CHECK 2.1 Beta
 
 Iptv-check allows you to input a valid iptv file (m3u) to be checked if the video streams are still working or not .
 In case valid urls were found , then the script will create a new iptv (m3u) file with those urls .
@@ -22,5 +22,5 @@ but if there is a bad login it will pop up a login message . OCR detection was a
 
 - git clone https://github.com/peterpt/IPTV-CHECK.git && cd IPTV-CHECK && ./iptv-check
 
-# Future implementations
- - on future implementations i will use ffmpeg to test streams witch is much more reliable than wget 
+# New Implementations
+ - Iptv-check rellies now on ffmpeg to download streams instead wget , new filters added to clean some iptv lists 
