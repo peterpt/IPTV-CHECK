@@ -1,6 +1,6 @@
 #!/bin/bash
 #variables
-version=2.1 Beta
+version="2.1 Beta"
 installdir="/usr/local/share/iptv-check"
 sname=$0
 wfile="$installdir/updated.m3u"
