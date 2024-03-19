@@ -9,11 +9,11 @@ downtime="2"
 online="0"
 
 #setup colors
-cyan='\e[0;36m'
+cyan='\033[0;36m'
 green='\033[92m'
-red='\e[1;31m'
-yellow='\e[0;33m'
-orange='\e[38;5;166m'
+red='\033[1;31m'
+yellow='\033[0;33m'
+orange='\033[38;5;166m'
 
 function chknet () {
 echo -e "GET http://google.com HTTP/1.0\n\n" | nc google.com 80 > /dev/null 2>&1
