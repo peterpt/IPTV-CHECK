@@ -1,0 +1,6 @@
+ffmpeg
+yt-dlp
+python3-tk
+tesseract-ocr 
+libtesseract-dev 
+tesseract-ocr-eng

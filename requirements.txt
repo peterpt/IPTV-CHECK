@@ -1,0 +1,4 @@
+requests
+Pillow
+pytesseract
+colorama
