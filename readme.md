@@ -14,9 +14,7 @@ IPTV-Check is a powerful, cross-platform tool for validating M3U playlists. Orig
 
 It reads an M3U playlist from a local file or URL, checks each stream to see if it's online, and saves the working streams to a new, clean M3U file.
 
-![alt text](https://raw.githubusercontent.com/peterpt/iptv-check/main/screenshot.png)
-
-Key Features
+* Key Features
 
 This is a major upgrade from the previous Bash version, designed for speed, accuracy, and user-friendliness.
 
@@ -26,9 +24,9 @@ This is a major upgrade from the previous Bash version, designed for speed, accu
 
         CLI Mode: A powerful command-line interface perfect for automation and scripting.
 
-    High-Performance Concurrency
+* High-Performance Concurrency
 
-        Utilizes multiple workers to check dozens of streams in parallel, dramatically reducing the time it takes to validate large playlists from hours to minutes.
+Utilizes multiple workers to check dozens of streams in parallel, dramatically reducing the time it takes to validate large playlists from hours to minutes.
 
     Advanced OCR Validation
 
@@ -55,33 +53,24 @@ This is a major upgrade from the previous Bash version, designed for speed, accu
         The GUI is available in 8 languages (EN, PT, ES, FR, IT, DE, RU, ZH), with a simple structure to support more translations.
 
 Requirements
-1. External Dependencies
+## 1. External Dependencies
 
 The following command-line tools must be installed on your system and accessible in your system's PATH for the application to function.
 
-    FFmpeg  FFprobe yt-dlp
+ apt install git ffmpeg yt-dlp python3-tk tesseract-ocr libtesseract-dev tesseract-ocr-en
 
-    apt install ffmpeg yt-dlp python3-tk tesseract-ocr libtesseract-dev tesseract-ocr-en
-
-    Tesseract OCR: (Optional) Only required if you want to use the advanced OCR validation feature.
-
-        Install Tesseract
-
-    Git: (Optional) Required for using the self-updating feature from the GUI's "About" menu.
+ Git: (Optional) Required for using the self-updating feature from the GUI's "About" menu.
 
 2. Python Dependencies
 
 The script requires Python 3.7+ and several third-party libraries. You can install them using the provided requirements.txt file. The required libraries are:
 
     requests
-
     Pillow
-
     pytesseract
-
     colorama
 
-Installation
+## Installation
 
     Clone the repository to your local machine:
     code Bash
@@ -92,14 +81,12 @@ cd iptv-check
 
   
 
-Install the required Python3 libraries using pip:
+ - Install the required Python3 libraries using pip:
 
         
     pip install -r requirements.txt
 
-      
-
-    Ensure all External Dependencies are installed correctly and that their locations are in your system's PATH.
+   Ensure all External Dependencies are installed correctly and that their locations are in your system's PATH.
 
 Usage
 GUI Mode (Recommended)
