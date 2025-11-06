@@ -164,6 +164,10 @@ The application will automatically create the following configuration files in i
 
     iptv_checker_links.ini: Stores the URLs for the Links Database feature.
 
+## Old versions can be downloaed in :
+
+    https://github.com/peterpt/IPTV-CHECK/releases
+
 License
 
 This project is licensed under the MIT License.
