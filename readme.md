@@ -105,4 +105,3 @@ This project is licensed under the MIT License.
 
     https://github.com/peterpt/IPTV-CHECK/releases
 
-  e Assistance by: Gemini Pro Model
